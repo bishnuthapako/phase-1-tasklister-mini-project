@@ -1,18 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
- document.querySelector("form").addEventListener("submit", (e) =>{
+ const form = document.querySelector("form");
+ form.addEventListener("submit", (e) =>{
    e.preventDefault()
-   handletodos(e.target.querySelector("#new-task-description").value)
+   let task = e.target["new-task-description"].value;
+   handletodos(task);
+   form.reset;
  })
 
 });
 
 
-function handletodos(todos){
-  let tasks = document.getElementById("tasks");
-  console.log(tasks);
+function handletodos(element){
+ 
   const li = document.createElement("li");
-  li.textContent = todos;
-  tasks.appendChild(li)
+  li.textContent = `${element} `;
+  let btn = document.createElement("button");
+  btn.textContent = "x";
+  li.appendChild(btn);
+  btn.addEventListener("click", (e)=> deleteButton(e))
+  document.querySelector("#tasks").appendChild(li)
+
+}
+
+function deleteButton(event){
+  event.target.parentNode.remove()
 }
 
